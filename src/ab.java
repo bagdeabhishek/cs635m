@@ -19,7 +19,7 @@ public class ab {
      */
     public static void main(String[] args) throws Exception {
 
-        final String corpusPath = args[0], indexPath = args[1];
+        final String corpusPath = "", indexPath = args[1];
         final File corpusDir = new File(corpusPath),
                 indexDir = new File(indexPath);
 

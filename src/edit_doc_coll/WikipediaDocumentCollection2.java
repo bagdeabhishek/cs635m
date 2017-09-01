@@ -65,13 +65,13 @@ public class WikipediaDocumentCollection2 extends AbstractDocumentCollection imp
     private transient int lastDocument;
 
     private final void initBuffers() {
-        this.bufferSize = new int[10];
-        this.buffer = new byte[10][];
+        this.bufferSize = new int[NUM_FIELDS];
+        this.buffer = new byte[NUM_FIELDS][];
         this.lineBuffer = ByteArrays.EMPTY_ARRAY;
         this.lastDocument = -1;
         this.metadata = new Reference2ObjectArrayMap();
 
-        for(int i = 10; i-- != 0; this.buffer[i] = ByteArrays.EMPTY_ARRAY) {
+        for(int i = NUM_FIELDS; i-- != 0; this.buffer[i] = ByteArrays.EMPTY_ARRAY) {
             ;
         }
 
@@ -192,9 +192,9 @@ public class WikipediaDocumentCollection2 extends AbstractDocumentCollection imp
 
     public InputStream stream(int index) throws IOException {
         this.readDocument(index, -1, (FastBufferedInputStream)null);
-        FastByteArrayInputStream[] is = new FastByteArrayInputStream[10];
+        FastByteArrayInputStream[] is = new FastByteArrayInputStream[NUM_FIELDS];
 
-        for(int i = 0; i < 10; ++i) {
+        for(int i = 0; i < NUM_FIELDS; ++i) {
             is[i] = new FastByteArrayInputStream(this.buffer[i], 0, this.bufferSize[i]);
         }
 
@@ -308,7 +308,7 @@ public class WikipediaDocumentCollection2 extends AbstractDocumentCollection imp
                     } while(!startOfPage && !startOfSentence);
                 } while(this.phrase);
 
-                for(i = 0; i < 10; ++i) {
+                for(i = 0; i < NUM_FIELDS; ++i) {
                     this.buffer[i] = ByteArrays.grow(this.buffer[i], this.bufferSize[i] + 3);
                     this.buffer[i][this.bufferSize[i]++] = -62;
                     this.buffer[i][this.bufferSize[i]++] = -74;
@@ -349,7 +349,7 @@ public class WikipediaDocumentCollection2 extends AbstractDocumentCollection imp
                 System.err.println("WARNING: empty file set.");
             }
 
-            BinIO.storeObject(new WikipediaDocumentCollection2(file, ReplicatedDocumentFactory.getFactory(factory, 11, FIELD_NAME), jsapResult.getBoolean("sentence"), jsapResult.getBoolean("gzipped")), jsapResult.getString("collection"));
+            BinIO.storeObject(new WikipediaDocumentCollection2(file, ReplicatedDocumentFactory.getFactory(factory, NUM_FIELDS, FIELD_NAME), jsapResult.getBoolean("sentence"), jsapResult.getBoolean("gzipped")), jsapResult.getString("collection"));
         }
     }
 
