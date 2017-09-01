@@ -15,8 +15,8 @@ public class wiki {
                 indexDir = new File(indexPath),
                 wikiDir = new File(wikipath);
         assert corpusDir.isDirectory() && indexDir.isDirectory() && wikiDir.isDirectory();
-        Collection<File> docFiles =
-                FileUtils.listFiles(corpusDir, new String[]{"txt"}, false);
+//        Collection<File> docFiles =
+//                FileUtils.listFiles(corpusDir, new String[]{"txt"}, false);
         Collection<File> wikidocFiles =
                 FileUtils.listFiles(wikiDir, new String[]{"txt"}, false);
         ArrayList<String> mg4jArgs = new ArrayList<String>();
@@ -26,6 +26,7 @@ public class wiki {
         for (File wikidocFile : wikidocFiles) {
             mg4jArgs.add(wikidocFile.getAbsolutePath());
         }
+        System.out.println(mg4jArgs.toString());
         WikipediaDocumentCollection.main(mg4jArgs.toArray(new String[]{}));
 
 
@@ -44,6 +45,7 @@ public class wiki {
                 (new File(indexDir, "wiki-cs635")).getAbsolutePath()
         });
 //        Query.GenericItem();
+
         Query.main(new String[]{
                 "-h",
                 "-c", wikicollectionFile.getAbsolutePath(),

@@ -17,7 +17,7 @@ public class ab {
      * @param args [1]=/path/to/corpus/dir [2]=/path/to/index/dir
      * @throws Exception
      */
-    public static void main(String args[]) throws Exception {
+    public static void main(String[] args) throws Exception {
 
         final String corpusPath = args[0], indexPath = args[1];
         final File corpusDir = new File(corpusPath),
